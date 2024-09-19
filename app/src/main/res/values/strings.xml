@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">HackLeague</string>
+    <string name="RegTitle">Регистрация</string>
+    <string name="RegHintMail">example@com</string>
+    <string name="RegHintPasFirst">Пароль</string>
+    <string name="RegHintPasSecond">Повторите пароль</string>
+    <string name="RegRadioUser">Участник</string>
+    <string name="RegRadioOwner">Организатор</string>
+    <string name="RegButton">Зарегестрироваться</string>
+    <string name="RegLinkToAuth">У меня уже есть аккаунт</string>
+    <string name="AuthTitle">Войти</string>
+    <string name="AuthHintMail">example@com</string>
+    <string name="AuthHintPas">Пароль</string>
+    <string name="AuthButton">Войти</string>
+    <string name="AuthLinkToReg">Зарегестрироваться</string>
 </resources>
