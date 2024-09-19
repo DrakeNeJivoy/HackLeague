@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/news"
+    android:title="Новости"
+    android:icon="@drawable/news"
+    android:orderInCategory="1" />
+
+    <item android:id="@+id/rating"
+        android:title="Рейтинг"
+        android:icon="@drawable/news"
+        android:orderInCategory="2" />
+    <item android:id="@+id/hackathon"
+        android:title="Хакатоны"
+        android:icon="@drawable/hackathon"
+        android:orderInCategory="3" />
+    <item android:id="@+id/hackathon"
+        android:title="Уведомления"
+        android:icon="@drawable/notifications"
+        android:orderInCategory="4" />
+    <item android:id="@+id/profile"
+        android:title="Профиль"
+        android:icon="@drawable/user"
+        android:orderInCategory="5" />
+</menu>
