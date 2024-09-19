@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
+
+
     EditText editTextTextEmailAddress;
     EditText editTextTextPassword;
     ImageButton imageButtonViewPassword;
@@ -45,6 +50,30 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextTextEmailAddress.getText().toString().isEmpty() ||
+                        editTextTextPassword.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Напишите почту и пароль!", Toast.LENGTH_SHORT).show();
+                } else {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                            editTextTextEmailAddress.getText().toString(),
+                            editTextTextPassword.getText().toString()
+                    ).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Успешный вход!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Ошибка входа: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     private void initViews() {

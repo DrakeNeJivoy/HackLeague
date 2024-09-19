@@ -9,12 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextTextEmailAddress;
@@ -23,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button buttonRegister;
     TextView textViewLogin;
     RadioButton radioButtonUser;
-    RadioButton radioButtonOwner;
+    RadioButton radioButtonOrganiser;
     ImageButton imageButtonViewPassword;
 
     @Override
@@ -52,6 +55,23 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = editTextTextEmailAddress.getText().toString().trim();
+                String password = editTextTextPassword.getText().toString();
+                String password2 = editTextTextPassword2.getText().toString();
+
+                if (email.isEmpty() || password.isEmpty() || password2.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(password2)) {
+                    Toast.makeText(RegisterActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                } else {
+                    registerUser(email, password);
+                }
+            }
+        });
+
     }
     private void initViews() {
         imageButtonViewPassword = findViewById(R.id.imageButtonViewPassword);
@@ -60,7 +80,35 @@ public class RegisterActivity extends AppCompatActivity {
         editTextTextPassword2 = findViewById(R.id.editTextTextPassword2);
         buttonRegister = findViewById(R.id.buttonRegister);
         radioButtonUser = findViewById(R.id.RadioButtonUser);
-        radioButtonOwner = findViewById(R.id.RadioButtonOwner);
+        radioButtonOrganiser = findViewById(R.id.RadioButtonOwner);
         textViewLogin = findViewById(R.id.textViewLogin);
     }
+    private void registerUser(String email, String password) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        String role = radioButtonUser.isChecked() ? "participant" : "organizer";
+
+                        User user = new User(email, role);
+
+                        FirebaseFirestore.getInstance().collection("users").document(userId)
+                                .set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(RegisterActivity.this, "Ошибка при сохранении данных: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Ошибка регистрации: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
