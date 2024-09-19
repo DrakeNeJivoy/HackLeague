@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/blackblue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
@@ -14,6 +15,7 @@
         android:layout_marginTop="110dp"
         android:gravity="center"
         android:text="Регистрация"
+        android:textColor="@color/grey"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,34 +24,35 @@
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="example@com"
+        android:backgroundTint="#9cacbf"
+        android:textColor="#9cacbf"
+        android:textColorHint="#9cacbf"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Пароль"
+        android:backgroundTint="#9cacbf"
+        android:textColor="#9cacbf"
+        android:textColorHint="#9cacbf"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
-        app:layout_constraintEnd_toStartOf="@+id/imageButtonViewPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
@@ -57,25 +60,28 @@
         android:id="@+id/imageButtonViewPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/blackblue"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword"
-        app:srcCompat="@drawable/eye_password" />
+        app:srcCompat="@drawable/eye_password"
+        app:tint="@color/grey" />
 
     <EditText
         android:id="@+id/editTextTextPassword2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Повторите пароль"
+        android:backgroundTint="#9cacbf"
+        android:textColor="#9cacbf"
+        android:textColorHint="#9cacbf"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
@@ -83,8 +89,8 @@
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
@@ -98,24 +104,27 @@
             android:layout_height="wrap_content"
 
             android:checked="true"
-            android:text="Участник" />
+            android:text="Участник"
+            android:textColor="@color/grey" />
 
         <RadioButton
             android:id="@+id/RadioButtonOwner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Организатор" />
+            android:text="Организатор"
+            android:textColor="@color/grey"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="Button"
+        android:layout_marginStart="112dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="8dp"
+        android:text="Зарегестрироваться"
         app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -123,10 +132,10 @@
         android:id="@+id/textViewLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="107dp"
         android:gravity="center"
-        android:text="зарегистрироваться"
+        android:text="У меня уже есть аккаунт"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
