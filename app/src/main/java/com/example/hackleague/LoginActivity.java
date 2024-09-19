@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,14 +64,33 @@ public class LoginActivity extends AppCompatActivity {
                             editTextTextPassword.getText().toString()
                     ).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Успешный вход!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            FirebaseFirestore.getInstance().collection("users").document(userId)
+                                    .get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        if (documentSnapshot.exists()) {
+                                            User user = documentSnapshot.toObject(User.class);
+                                            String role = user.getRole();
+
+                                            if ("participant".equals(role)) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                Toast.makeText(LoginActivity.this, "Участник", Toast.LENGTH_SHORT).show();
+                                                startActivity(intent);
+                                            } else if ("organizer".equals(role)) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                Toast.makeText(LoginActivity.this, "Организатор", Toast.LENGTH_SHORT).show();
+                                                startActivity(intent);
+                                            }
+                                            finish();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Пользователь не найден", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
                             Toast.makeText(LoginActivity.this, "Ошибка входа: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+
                 }
             }
         });
