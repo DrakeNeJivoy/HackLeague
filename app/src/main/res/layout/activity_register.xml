@@ -110,8 +110,13 @@
                 android:ems="10"
                 android:inputType="text"
                 android:textColor="@color/grey"
+<<<<<<< HEAD
                 android:backgroundTint="@color/grey"
                 android:textColorHint="@color/grey"
+=======
+                android:textColorHint="@color/grey"
+                android:backgroundTint="@color/grey"
+>>>>>>> 89d34f9759f97fdf81582b848f45e862f51b4adc
                 android:hint="Введите ваше имя"
                 app:layout_constraintBottom_toTopOf="@+id/radioGroup"
                 app:layout_constraintEnd_toEndOf="parent"
