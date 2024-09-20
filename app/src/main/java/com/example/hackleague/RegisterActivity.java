@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextTextEmailAddress;
     EditText editTextTextPassword;
     EditText editTextTextPassword2;
+    EditText editTextTextName;
     Button buttonRegister;
     TextView textViewLogin;
     RadioButton radioButtonUser;
@@ -64,13 +65,14 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = editTextTextEmailAddress.getText().toString().trim();
                 String password = editTextTextPassword.getText().toString();
                 String password2 = editTextTextPassword2.getText().toString();
+                String name = editTextTextName.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty() || password2.isEmpty()) {
+                if (email.isEmpty() || password.isEmpty() || password2.isEmpty() || name.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(password2)) {
                     Toast.makeText(RegisterActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(email, password);
+                    registerUser(email, password, name);
                 }
             }
         });
@@ -81,18 +83,27 @@ public class RegisterActivity extends AppCompatActivity {
         editTextTextEmailAddress = findViewById(R.id.editTextTextEmailAddress);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         editTextTextPassword2 = findViewById(R.id.editTextTextPassword2);
+        editTextTextName = findViewById(R.id.editTextName);
         buttonRegister = findViewById(R.id.buttonRegister);
         radioButtonUser = findViewById(R.id.radioButtonUser);
         radioButtonOrganiser = findViewById(R.id.radioButtonOwner);
         textViewLogin = findViewById(R.id.textViewLogin);
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(String email, String password, String name) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Регистрация успешна, сохраняем данные в Firestore
-                        String role = radioButtonUser.isChecked() ? "user" : "organizer";
+                        String role;
+                        boolean isOrganizer = radioButtonOrganiser.isChecked();
+                        if (radioButtonUser.isChecked()) {
+                            role = "user"; // Участник без ограничений
+                        } else if (isOrganizer) {
+                            role = "organizer";
+                        } else {
+                            role = "admin"; // В случае добавления админа
+                        }
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -100,12 +111,22 @@ public class RegisterActivity extends AppCompatActivity {
                         Map<String, Object> userMap = new HashMap<>();
                         userMap.put("email", email);
                         userMap.put("role", role);
+                        userMap.put("name", name);
+
+                        if (isOrganizer) {
+                            // Если это организатор, добавляем поле для статуса подтверждения
+                            userMap.put("isConfirmed", false); // Организатор ждет подтверждения
+                        }
 
                         db.collection("users").document(uid)
                                 .set(userMap)
                                 .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    if (isOrganizer) {
+                                        Toast.makeText(RegisterActivity.this, "Организатор зарегистрирован. Ожидайте подтверждения.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
                                 })
