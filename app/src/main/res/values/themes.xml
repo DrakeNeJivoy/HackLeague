@@ -4,6 +4,7 @@
         <item name="android:statusBarColor">@color/blueone</item>
         <item name="android:radioButtonStyle">@color/blueone</item>
         <item name="colorPrimary">@color/blueone</item>
+        <item name="bottomNavigationStyle">@color/blueone</item>
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
