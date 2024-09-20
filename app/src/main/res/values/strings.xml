@@ -13,4 +13,6 @@
     <string name="AuthHintPas">Пароль</string>
     <string name="AuthButton">Войти</string>
     <string name="AuthLinkToReg">Зарегестрироваться</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

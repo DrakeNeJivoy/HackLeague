@@ -20,6 +20,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextTextEmailAddress;
     EditText editTextTextPassword;
@@ -93,16 +96,35 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+                        // Регистрация успешна, сохраняем данные в Firestore
+                        String role = radioButtonUser.isChecked() ? "user" : "organizer";
 
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        Map<String, Object> userMap = new HashMap<>();
+                        userMap.put("email", email);
+                        userMap.put("role", role);
+
+                        db.collection("users").document(uid)
+                                .set(userMap)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(RegisterActivity.this, "Ошибка записи в Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     } else {
                         Toast.makeText(RegisterActivity.this, "Ошибка регистрации: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+
+
 
 
 }

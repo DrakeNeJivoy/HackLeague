@@ -1,8 +1,8 @@
 package com.example.hackleague;
 
 public class User {
-    private String email;
-    private String role;
+    public String email;
+    public String role;
 
     public User() {}
 
