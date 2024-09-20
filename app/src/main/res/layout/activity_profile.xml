@@ -43,6 +43,16 @@
             android:textSize="18sp"
             android:textColor="@color/grey"
             android:gravity="center"/>
+        <TextView
+            android:id="@+id/user_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Score: 0"
+            android:textSize="18sp"
+            android:textColor="@color/grey"
+            android:gravity="center"/>
+
 
         <!-- Кнопка с плюсиком и текст "Управление командами" -->
         <LinearLayout
@@ -58,8 +68,7 @@
                 android:layout_height="60dp"
                 android:background="@color/bluetwo"
                 android:src="@drawable/baseline_mode_edit_outline_24"
-                android:contentDescription="Управление командами"
-                android:onClick="onManageTeamsClick"/>
+                android:contentDescription="Управление командами"/>
 
             <TextView
                 android:id="@+id/manage_teams_text"
