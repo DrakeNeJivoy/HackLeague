@@ -83,15 +83,15 @@ public class LoginActivity extends AppCompatActivity {
                                 .addOnSuccessListener(documentSnapshot -> {
                                     if (documentSnapshot.exists()) {
                                         // Проверяем роль и isConfirmed
-                                        String role = documentSnapshot.getString("role");
+                                        String score = documentSnapshot.getString("score");
                                         boolean isConfirmed = documentSnapshot.getBoolean("isConfirmed");
 
-                                        if ("организатор".equals(role) && !isConfirmed) {
+                                        if ("организатор".equals(false) && !isConfirmed) {
                                             // Если организатор не подтвержден
                                             Toast.makeText(LoginActivity.this, "Вход запрещен: ваш статус не подтвержден.", Toast.LENGTH_SHORT).show();
                                         } else {
                                             // Вход успешен
-                                            Toast.makeText(LoginActivity.this, "Вход успешен! Ваша роль: " + role, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, "Вход успешен! Рейтинг " + score, Toast.LENGTH_SHORT).show();
 
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                             startActivity(intent);

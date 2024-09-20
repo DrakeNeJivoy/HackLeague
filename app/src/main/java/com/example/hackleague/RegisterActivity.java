@@ -66,13 +66,14 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = editTextTextPassword.getText().toString();
                 String password2 = editTextTextPassword2.getText().toString();
                 String name = editTextTextName.getText().toString();
+                int score = 0;
 
                 if (email.isEmpty() || password.isEmpty() || password2.isEmpty() || name.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(password2)) {
                     Toast.makeText(RegisterActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(email, password, name);
+                    registerUser(email, password, name, score);
                 }
             }
         });
@@ -90,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         textViewLogin = findViewById(R.id.textViewLogin);
     }
 
-    private void registerUser(String email, String password, String name) {
+    private void registerUser(String email, String password, String name, int score) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -112,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                         userMap.put("email", email);
                         userMap.put("role", role);
                         userMap.put("name", name);
+                        userMap.put("scores", score); // Используйте переданное значение
 
                         if (isOrganizer) {
                             // Если это организатор, добавляем поле для статуса подтверждения
@@ -138,4 +140,5 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
