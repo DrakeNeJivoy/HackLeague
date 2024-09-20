@@ -20,7 +20,6 @@ public class HackathonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hackathon);
-<<<<<<< HEAD
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.hackathon);
@@ -49,7 +48,5 @@ public class HackathonActivity extends AppCompatActivity {
                 return false;
             }
         });
-=======
->>>>>>> b9bed462a58be1d285a1cbf06ee9cc36ee92284f
     }
 }
