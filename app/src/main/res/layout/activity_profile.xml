@@ -2,55 +2,64 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Нижняя навигация -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp">
+        android:layout_height="204dp"
+        android:layout_above="@+id/bottom_nav"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="444dp"
+        android:gravity="center">
 
         <!-- Круг для аватарки пользователя -->
-        <ImageView
-            android:id="@+id/user_avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/user"
-            android:onClick="onAvatarClick"/>
 
         <!-- Почта пользователя -->
+
+        <!-- Ник пользователя -->
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="125dp"
+            android:layout_height="108dp"
+            android:onClick="onAvatarClick"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
         <TextView
             android:id="@+id/user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:gravity="center"
             android:text="user@example.com"
-            android:textSize="18sp"
             android:textColor="#000"
-            android:gravity="center"/>
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="52dp" />
 
-        <!-- Ник пользователя -->
         <TextView
             android:id="@+id/user_nickname"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="UserNickname"
-            android:textSize="18sp"
             android:textColor="#000"
-            android:gravity="center"/>
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <!-- Кнопка с плюсиком и текст "Управление командами" -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="32dp">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+<<<<<<< HEAD
             <ImageButton
                 android:id="@+id/manage_teams_button"
                 android:layout_width="60dp"
@@ -98,11 +107,58 @@
     </LinearLayout>
 
     <!-- Нижняя навигация -->
+=======
+>>>>>>> d637f1f3d9b4823a16e31aa6f4756a6e7e65b95e
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="-207dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        tools:layout_editor_absoluteY="335dp">
+
+        <ImageButton
+            android:id="@+id/manage_teams_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginLeft="85dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:contentDescription="Управление командами"
+            android:onClick="onManageTeamsClick"
+            android:src="@drawable/baseline_mode_edit_outline_24"
+            app:layout_constraintEnd_toStartOf="@+id/manage_teams_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/manage_teams_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="85dp"
+            android:layout_marginRight="85dp"
+            android:layout_marginBottom="11dp"
+            android:gravity="center"
+            android:text="Управление командами"
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/manage_teams_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/manage_teams_button"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
