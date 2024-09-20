@@ -9,16 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import com.google.firebase.firestore.FirebaseFirestore;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseAuth;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initViews();
+
         imageButtonViewPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
                 editTextTextPassword2.setSelection(editTextTextPassword.getText().length());
             }
         });
+
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,27 +70,23 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (!password.equals(password2)) {
                     Toast.makeText(RegisterActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
                 } else {
-
-                    Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                     registerUser(email, password);
                 }
             }
         });
-
     }
+
     private void initViews() {
         imageButtonViewPassword = findViewById(R.id.imageButtonViewPassword);
         editTextTextEmailAddress = findViewById(R.id.editTextTextEmailAddress);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         editTextTextPassword2 = findViewById(R.id.editTextTextPassword2);
         buttonRegister = findViewById(R.id.buttonRegister);
-        radioButtonUser = findViewById(R.id.RadioButtonUser);
-        radioButtonOrganiser = findViewById(R.id.RadioButtonOwner);
+        radioButtonUser = findViewById(R.id.radioButtonUser);
+        radioButtonOrganiser = findViewById(R.id.radioButtonOwner);
         textViewLogin = findViewById(R.id.textViewLogin);
     }
+
     private void registerUser(String email, String password) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -122,9 +117,4 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-
-
-
 }

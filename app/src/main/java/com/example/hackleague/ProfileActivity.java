@@ -11,45 +11,38 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        initViews();
+        setContentView(R.layout.activity_profile);
+
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.news) {
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
                 return true;
             } else if (item.getItemId() == R.id.rating) {
-                Intent intent = new Intent(MainActivity.this, RatingActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, RatingActivity.class);
                 startActivity(intent);
                 return true;
             } else if (item.getItemId() == R.id.hackathon) {
-                Intent intent = new Intent(MainActivity.this, HackathonActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, HackathonActivity.class);
                 startActivity(intent);
                 return true;
             } else if (item.getItemId() == R.id.notifications) {
-                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, NotificationActivity.class);
                 startActivity(intent);
                 return true;
             } else if (item.getItemId() == R.id.profile) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
                 return true;
             } else {
                 return false;
             }
         });
-
-    }
-    private void initViews() {
-        bottomNavigationView = findViewById(R.id.bottm_nav);
     }
 }
