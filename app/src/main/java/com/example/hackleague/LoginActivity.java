@@ -76,18 +76,27 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Получаем роль пользователя после входа
+                        // Получаем UID текущего пользователя
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         FirebaseFirestore.getInstance().collection("users").document(uid)
                                 .get()
                                 .addOnSuccessListener(documentSnapshot -> {
                                     if (documentSnapshot.exists()) {
+                                        // Проверяем роль и isConfirmed
                                         String role = documentSnapshot.getString("role");
-                                        Toast.makeText(LoginActivity.this, "Вход успешен! Ваша роль: " + role, Toast.LENGTH_SHORT).show();
+                                        boolean isConfirmed = documentSnapshot.getBoolean("isConfirmed");
 
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        if ("организатор".equals(role) && !isConfirmed) {
+                                            // Если организатор не подтвержден
+                                            Toast.makeText(LoginActivity.this, "Вход запрещен: ваш статус не подтвержден.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Вход успешен
+                                            Toast.makeText(LoginActivity.this, "Вход успешен! Ваша роль: " + role, Toast.LENGTH_SHORT).show();
+
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     }
                                 })
                                 .addOnFailureListener(e -> {
@@ -98,4 +107,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

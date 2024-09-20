@@ -19,7 +19,6 @@ import java.util.List;
 
 public class NotificationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RatingAdapter ratingAdapter;
     private List<String> ratingList;
     BottomNavigationView bottomNavigationView;
 
@@ -40,8 +39,8 @@ public class NotificationActivity extends AppCompatActivity {
         ratingList.add("Уведомление 2");
         ratingList.add("Уведомление 3");
 
-        ratingAdapter = new RatingAdapter(ratingList);
-        recyclerView.setAdapter(ratingAdapter);
+        NotificationAdapter notificationAdapter = new NotificationAdapter(ratingList);
+        recyclerView.setAdapter(notificationAdapter);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.news) {

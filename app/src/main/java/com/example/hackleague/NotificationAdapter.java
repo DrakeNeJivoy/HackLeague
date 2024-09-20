@@ -8,41 +8,38 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
-    private List<Team> teamList;
+    private List<String> notificationList;
 
-    public RatingAdapter(List<Team> teamList) {
-        this.teamList = teamList;
+    public NotificationAdapter(List<String> notificationList) {
+        this.notificationList = notificationList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rating, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Team team = teamList.get(position);
-        holder.teamNameTextView.setText(team.getName());
-        holder.teamPointsTextView.setText(String.valueOf(team.getPoints()));
+        String notification = notificationList.get(position);
+        holder.notificationTextView.setText(notification);
     }
 
     @Override
     public int getItemCount() {
-        return teamList.size();
+        return notificationList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView teamNameTextView;
-        TextView teamPointsTextView;
+        TextView notificationTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            teamNameTextView = itemView.findViewById(R.id.team_name);
-            teamPointsTextView = itemView.findViewById(R.id.team_points);
+            notificationTextView = itemView.findViewById(R.id.notification_text);
         }
     }
 }
