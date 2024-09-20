@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,11 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
                         String role;
                         boolean isOrganizer = radioButtonOrganiser.isChecked();
                         if (radioButtonUser.isChecked()) {
-                            role = "user"; // Участник без ограничений
+                            role = "user"; // Участник
                         } else if (isOrganizer) {
                             role = "organizer";
                         } else {
-                            role = "admin"; // В случае добавления админа
+                            role = "admin"; // Если нужно
                         }
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -114,10 +115,10 @@ public class RegisterActivity extends AppCompatActivity {
                         userMap.put("role", role);
                         userMap.put("name", name);
                         userMap.put("scores", score); // Используйте переданное значение
+                        userMap.put("groups", new ArrayList<>()); // Инициализация пустого массива групп
 
                         if (isOrganizer) {
-                            // Если это организатор, добавляем поле для статуса подтверждения
-                            userMap.put("isConfirmed", false); // Организатор ждет подтверждения
+                            userMap.put("isConfirmed", false); // Ожидает подтверждения
                         }
 
                         db.collection("users").document(uid)
@@ -140,5 +141,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

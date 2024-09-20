@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (documentSnapshot.exists()) {
                                         // Проверяем роль и isConfirmed
                                         String score = documentSnapshot.getString("score");
-                                        
+
                                             // Вход успешен
                                             Toast.makeText(LoginActivity.this, "Вход успешен! Рейтинг " + score, Toast.LENGTH_SHORT).show();
 
